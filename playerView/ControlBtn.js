@@ -49,6 +49,9 @@ export default class ControlBtn extends Component {
       isFull,
       showGG,
       showSlider,
+      showGoLive,
+      onGoLivePress,
+      onReplayPress,
       onPausedPress,
       onFullPress,
       onValueChange,
@@ -61,10 +64,23 @@ export default class ControlBtn extends Component {
       style
     } = this.props;
     return (
-      <View style={[styles.controls,style]}>
+      <View style={[styles.controls, style]}>
         <View style={styles.controlContainer}>
           <TouchableOpacity style={styles.controlContent} activeOpacity={1}>
             <View style={styles.controlContent2}>
+              <View style={styles.right}>
+                <TouchableOpacity
+                  activeOpacity={1}
+                  onPress={() => {
+                    onReplayPress && onReplayPress();
+                  }}
+                  style={{ width: 50, alignItems: 'center', justifyContent: 'center' }}>
+                  <Icon name={'replay'} size={30} color="#fff" />
+                </TouchableOpacity>
+                <Text
+                  style={{ fontSize: 11, color: '#fff' }}>       </Text>
+              </View>
+
               <TouchableOpacity
                 activeOpacity={1}
                 onPress={() => {
@@ -73,7 +89,8 @@ export default class ControlBtn extends Component {
                 style={{ width: 50, alignItems: 'center', justifyContent: 'center' }}>
                 <Icon name={paused ? 'play' : 'pause'} size={30} color="#fff" />
               </TouchableOpacity>
-              {showSlider && totalTime > 0 &&(
+
+              {/* {showSlider && totalTime > 0 &&(
                 <View
                   style={{
                     flex: 1,
@@ -109,15 +126,27 @@ export default class ControlBtn extends Component {
                   </Text>
                   </View>
                 </View>
-              )}
-              <TouchableOpacity
-                activeOpacity={1}
-                onPress={() => {
-                  onFullPress && onFullPress(!isFull);
-                }}
-                style={{ width: 50, alignItems: 'center', justifyContent: 'center' }}>
-                <Icon name={isFull ? 'fullscreen-exit' : 'fullscreen'} size={30} color="#fff" />
-              </TouchableOpacity>
+              )} */}
+
+              <View style={styles.right}>
+                <TouchableOpacity
+                  activeOpacity={1}
+                  onPress={() => {
+                    onGoLivePress && onGoLivePress();
+                  }}>
+                  <Text
+                    style={{ fontSize: 11, color: '#fff' }}>{showGoLive ? 'Go live' : '       '}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  activeOpacity={1}
+                  onPress={() => {
+                    onFullPress && onFullPress(!isFull);
+                  }}
+                  style={{ width: 50, alignItems: 'center', justifyContent: 'center' }}>
+                  <Icon name={isFull ? 'fullscreen-exit' : 'fullscreen'} size={30} color="#fff" />
+                </TouchableOpacity>
+              </View>
+
             </View>
           </TouchableOpacity>
         </View>
@@ -132,8 +161,8 @@ const styles = StyleSheet.create({
     //backgroundColor: '#000',
   },
   controls: {
-    width:'100%',
-    height:50,
+    width: '100%',
+    height: 50,
   },
   rateControl: {
     flex: 0,
@@ -155,7 +184,7 @@ const styles = StyleSheet.create({
     //lineHeight: 12,
   },
   controlContainer: {
-    flex:1,
+    flex: 1,
     //padding: 5,
     alignItems: 'center',
     justifyContent: 'center',
@@ -165,7 +194,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 50,
     //borderRadius: 10,
-    backgroundColor: 'rgba(255,255,255,0.6)',
+    backgroundColor: 'rgba(255,255,255,0.1)',
   },
   controlContent2: {
     flex: 1,
@@ -178,6 +207,16 @@ const styles = StyleSheet.create({
   progress: {
     flex: 1,
     borderRadius: 3,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  left: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  right: {
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -83,6 +83,10 @@ export default class CommonVideo extends Component {
      * 是否显示标题
      */
     showTitle: PropTypes.bool,
+
+    onGoLivePress: PropTypes.func,
+    
+    onReplayPress: PropTypes.func,
   };
 
   static getDerivedStateFromProps(nextProps, preState) {
@@ -126,6 +130,14 @@ export default class CommonVideo extends Component {
     this.setState({
       currentVideoAspectRatio: deviceWidth + ":" + this.initialHeight,
     });
+
+    // [bav add start]
+    let { isFull } = this.props;
+    console.log(`isFull == ${isFull}`);
+    if (isFull) {
+      this._toFullScreen();
+    }
+    // [bav add end]
   }
 
   componentWillUnmount() {
