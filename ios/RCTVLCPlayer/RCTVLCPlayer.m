@@ -89,11 +89,16 @@ static NSString *const playbackRate = @"rate";
     if(_player){
         [self _release];
     }
-    NSArray* options = [_source objectForKey:@"initOptions"];
+    // [bavv edit start]
+    // NSArray* options = [_source objectForKey:@"initOptions"];
+    NSArray* options = @[ @"--rtsp-tcp", @"-vvv"];
     NSString* uri    = [_source objectForKey:@"uri"];
     NSURL* _uri    = [NSURL URLWithString:uri];
     
-    _player = [[VLCMediaPlayer alloc] init];
+    _player = [[VLCMediaPlayer alloc] initWithOptions:options];
+    // _player = [[VLCMediaPlayer alloc] init];
+	// [bavv edit end]
+
     [_player setDrawable:self];
     _player.delegate = self;
     _player.scaleFactor = 0;
@@ -118,14 +123,18 @@ static NSString *const playbackRate = @"rate";
         [self _release];
     }
     _source = source;
-    NSArray* options = [source objectForKey:@"initOptions"];
+    // [bavv edit start]
+    // NSArray* options = [source objectForKey:@"initOptions"];
+    NSArray* options = @[ @"--rtsp-tcp", @"-vvv"];
     NSString* uri    = [source objectForKey:@"uri"];
     BOOL    autoplay = [RCTConvert BOOL:[source objectForKey:@"autoplay"]];
     NSURL* _uri    = [NSURL URLWithString:uri];
     
     //init player && play
-    //_player = [[VLCMediaPlayer alloc] initWithOptions:options];
-    _player = [[VLCMediaPlayer alloc] init];
+    _player = [[VLCMediaPlayer alloc] initWithOptions:options];
+    // _player = [[VLCMediaPlayer alloc] init];
+    // [bavv edit end]
+
     [_player setDrawable:self];
     _player.delegate = self;
     _player.scaleFactor = 0;
