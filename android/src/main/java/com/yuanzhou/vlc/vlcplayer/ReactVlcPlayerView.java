@@ -200,6 +200,10 @@ class ReactVlcPlayerView extends SurfaceView implements
         try {
             // Create LibVLC
             ArrayList<String> options = new ArrayList<String>(50);
+            // [bavv add start]
+            options.add("--rtsp-tcp");
+            options.add("-vv");
+            // [bavv add end]
             libvlc =  VLCInstance.get(getContext());
             //libvlc = new LibVLC(getContext(), options);
             // Create media player
@@ -229,10 +233,10 @@ class ReactVlcPlayerView extends SurfaceView implements
 
             mMediaPlayer.setMedia(m);
             mMediaPlayer.setScale(0);
-            if(autoplay){
+            // if(autoplay){
                 isPaused = false;
                 mMediaPlayer.play();
-            }
+            // }
             eventEmitter.loadStart();
         } catch (Exception e) {
             //Toast.makeText(getContext(), "Error creating player!", Toast.LENGTH_LONG).show();
